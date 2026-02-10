@@ -1,45 +1,119 @@
 # 🚀 Loja Tech - Avaliação Prática
 
-Este projeto foi desenvolvido utilizando **React Native** com **Expo Router** para a Avaliação Prática de Programação para Dispositivos Móveis. O projeto demonstra navegação entre telas, passagem e tratamento de parâmetros, além do uso de componentes essenciais.
+Aplicativo mobile desenvolvido em **React Native (Expo)** como projeto de Programação para Dispositivos Móveis.
 
-## 🎯 Requisitos Implementados
-
-* **Estratégia de Navegação:** Uso do Expo Router (Stack Navigation).
-* **Passagem de Parâmetros:** Passagem do nome e preço do produto do Catálogo para a tela de Detalhes.
-* **Componentes:** Uso de `Image`, `Text`, `TextInput` e `Button`.
-* **Design:** Paleta de cores moderna (Preto e Roxo).
+O app simula uma pequena loja de produtos de tecnologia com funcionamento **online/offline**, carrinho local e sincronização automática com o Supabase.
 
 ---
 
-## 🖼️ Telas do Aplicativo
+## 🎯 O que o projeto faz
 
-### 1. Tela Inicial
-
-Apresenta a saudação personalizada via `TextInput` e o botão de navegação.
-
-![Screenshot da Tela Inicial do App](docs/tela-inicial.png)
-
-### 2. Catálogo de Produtos
-
-Exibe os produtos e realiza a **passagem de parâmetros** para a próxima tela.
-
-![Screenshot da tela de Catálogo de Produtos](docs/catalogo.png)
-
-### 3. Detalhes do Produto: Mouse Gamer
-
-Tela que recebe e exibe os parâmetros (`nome`, `preco`, `categoria`) passados.
-
-![Screenshot da tela de Detalhes do Mouse Gamer](docs/detalhes-mouse.png)
-
-### 4. Detalhes do Produto: Teclado Mecânico
-
-Demonstra o mesmo layout, mas com parâmetros diferentes, provando o **tratamento dinâmico** dos dados.
-
-![Screenshot da tela de Detalhes do Teclado Mecânico](docs/detalhes-teclado.png)
+- Listagem de produtos (API FakeStore)
+- Adicionar produtos ao carrinho local (SQLite)
+- Sincronização automática com banco remoto (Supabase)
+- Funcionamento offline
+- Histórico remoto de compras
+- Controle de itens já presentes no carrinho
+- Indicador visual de conexão (Online / Offline)
 
 ---
 
-## ⚙️ Como Rodar o Projeto
+## 📱 Telas do Aplicativo
+
+### 🏠 Catálogo
+- Lista produtos da API
+- Botão para adicionar ao carrinho
+- Sincroniza automaticamente quando há internet
+
+### 🛒 Carrinho
+- Mostra produtos salvos localmente
+- Indica se já foram sincronizados
+- Permite remover itens
+- Atualiza o status no Supabase ao remover
+
+### 🕘 Histórico
+- Lista produtos vindos do banco remoto
+- Só mostra itens que NÃO estão no carrinho
+- Permite adicionar novamente ao carrinho
+- Permite excluir do histórico
+
+---
+
+## 🧠 Tecnologias utilizadas
+
+- React Native
+- Expo
+- React Navigation (Bottom Tabs)
+- SQLite (armazenamento local)
+- Supabase (banco remoto)
+- NetInfo (detecção de internet)
+
+---
+
+## 🔄 Funcionamento Offline
+
+O app funciona mesmo sem internet:
+
+- Produto é salvo no SQLite
+- Fica marcado como **Offline**
+- Quando a conexão volta:
+  - O app envia automaticamente para o Supabase
+  - Marca como **Sincronizado**
+
+---
+
+## 🗄️ Estrutura do Banco
+
+### SQLite (Local)
+Tabela: `carrinho`
+
+Campos:
+- id
+- nome
+- preco
+- sincronizado (0 ou 1)
+
+### Supabase (Remoto)
+Tabela: `vendas_remotas`
+
+Campos:
+- id
+- produto_nome
+- preco
+- no_carrinho (true/false)
+- created_at
+
+---
+
+## 📡 Sincronização automática
+
+- Ao abrir o app
+- Ao voltar a conexão
+- Ao adicionar produto no carrinho
+
+---
+
+## 🟢 Indicador de conexão
+
+No topo do app:
+
+- ONLINE → verde
+- OFFLINE → vermelho
+
+Atualiza automaticamente.
+
+---
+
+## 📦 Melhorias implementadas
+
+- SafeArea corrigida (não invade status bar)
+- Tabs ajustadas para não ficar embaixo dos botões do Android
+- Controle para não duplicar produtos
+- Histórico inteligente:
+  - Se estiver no carrinho → não aparece botão "+"
+  - Se remover do carrinho → volta a aparecer
+
+## ⚙️ Como rodar o projeto
 
 1.  Clone o repositório: `git clone https://github.com/JosePedro1/Loja-Tech.git`
 2.  Instale as dependências: `npm install`
